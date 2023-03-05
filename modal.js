@@ -28,10 +28,14 @@ const regDate = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
 // DOM Errors
 const errorFirst = document.getElementById("errorFirst");
 const errorLast = document.getElementById("errorLast");
+const errorMail = document.getElementById("errorMail");
 const errorDate = document.getElementById("errorDate");
 const errorQuantity = document.getElementById("errorQuantity");
 const errorCheckbox1 = document.getElementById("errorCheckbox1");
 const errorCheckbox2 = document.getElementById("errorCheckbox2");
+
+let textcontrol = document.getElementsByClassName("text-control");
+
 
 // function Firstname
 function isFirstNameValid(first) {
@@ -83,11 +87,11 @@ function isEmailValid(email){
 function isBirthDateValid(birthdate){
   if(!regDate.test(birthdate.value)){
     console.log("Date invalide");
-    return true;
+    return false;
   }else {
     console.log("Date valide");
     console.log(birthdate.value);
-    return false;
+    return true;
   }
 }
 
@@ -100,7 +104,7 @@ function isQuantityValid(quantity){
     errorQuantity.style.color = "red";
     return false;
   }else {
-    console.log(quantity);
+    console.log("quantité: " + quantity);
     errorQuantity.textContent = "";
     errorQuantity.style.color = "green";
     return true;
@@ -121,18 +125,24 @@ function isChecbox1Checked(checkbox1) {
   if (!checkbox1.checked) {
     errorCheckbox1.textContent = "Vous devez lire et accepter les conditions d'utilisations";
     console.log("Vous devez lire et accepter les conditions d'utilisations");
+    return false;
   } else {
     errorCheckbox1.textContent = "";
+    return true;
   }
 }
+
+
 
 // Checkbox2
 function isChecbox2Checked(checkbox2) {
   console.log(checkbox2.value);
   if (checkbox2.checked) {
     errorCheckbox2.textContent = "";
+    return true
   } else {
    errorCheckbox2.textContent = "Vous n'avez rien cochez";
+   return false
   }
 }
 
@@ -141,10 +151,30 @@ const form = document.querySelector('form');
 form.addEventListener('submit', function(event) {
   event.preventDefault();
    if (validate()){
-     const content = document.getElementsByClassName("content");
-     content.textContent = "Merci !";
+    console.log("validated");
+    const validated = document.getElementById("validated");
+    validated.style.textAlign = "center";
+    validated.innerHTML = "Merci pour votre inscription";
+    validated.style.margin = "35% auto";
+    const closeButton = document.createElement("button");
+    closeButton.textContent = "Fermer";
+    closeButton.classList.add('btn-submit');
+    closeButton.style.marginBottom = "5%";
+
+    closeButton.addEventListener("click", (ev) =>{
+    const formElements = document.querySelectorAll("input");
+      formElements.forEach(function(element) {
+      element.value = "";
+      });
+      event.preventDefault();
+    });
+
+    console.log(closeButton);
+
+    const contents = document.getElementById("contents");
+    contents.appendChild(closeButton);
    }
-   console.log("test");
+   console.log("error check");
 });
 
 //function Validate
@@ -160,47 +190,86 @@ function validate(){
 
   // Errors Validations
   let hasError = false;
+  console.log("etat: " + hasError);
+
   if(!isFirstNameValid(first)){
     hasError = true;
+    console.log("etat-2: " + hasError);
   }
 
   if(!isLastNameValid(last)){
     hasError = true;
+    console.log("etat-3: " + hasError);
   }
 
   if(!isEmailValid(email)){
     hasError = true;
+    console.log("etat-4: " + hasError);
   }
 
   if(!isBirthDateValid(birthdate) ){
     hasError = true;
+    console.log("etat-5: " + hasError);
+  }
+
+  if(!isQuantityValid(quantity) ){
+    hasError = true;
+    console.log("etat-6: " + hasError);
   }
 
   if(!isChecbox1Checked(checkbox1) ){
     hasError = true;
+    console.log("etat-7: " + hasError);
   }
 
   if(!isChecbox2Checked(checkbox2) ){
     hasError = true;
+    console.log("etat-8: " + hasError);
   }
 
-  if(!isRadioChecked() ){
-    hasError = true;
-  }
+
+  console.log("etat-10: " + hasError);
 
   return !hasError;
 }
 
 
+function resetForm() {
+  const formElements = document.querySelectorAll("input");
+  formElements.forEach(function(element) {
+    element.value = "";
+  });
+}
 
-// Close modal
+
+// Close modal function
 const crosses = document.getElementsByClassName("close")[0];
 
 function closeModalBg(){
   crosses.addEventListener("click", (ev) => {
     modalbg.style.display = "none";
+    errorFirst.textContent = "";
+    errorLast.textContent = "";
+    errorMail.textContent = "";
+    resetForm();
     ev.preventDefault();
   });
 }
 
 closeModalBg();
+
+// Close modal  while ESC key is press
+
+// Get the modal element
+function escClose() {
+  // Listen for keydown event on the document
+  document.addEventListener("keydown", function(event) {
+    // Check if the pressed key is the "Esc" key
+    if (event.key === "Escape") {
+      // Close the modal
+      modalbg.style.display = "none";
+    }
+  });
+}
+
+escClose();
