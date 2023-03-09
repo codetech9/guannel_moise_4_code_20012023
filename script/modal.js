@@ -156,16 +156,15 @@ form.addEventListener('submit', function(event) {
     validated.style.textAlign = "center";
     validated.innerHTML = "Merci pour votre inscription";
     validated.style.margin = "35% auto";
+    // Bouton fermer
     const closeButton = document.createElement("button");
     closeButton.textContent = "Fermer";
     closeButton.classList.add('btn-submit');
     closeButton.style.marginBottom = "5%";
 
     closeButton.addEventListener("click", (ev) =>{
-    const formElements = document.querySelectorAll("input");
-      formElements.forEach(function(element) {
-      element.value = "";
-      });
+      const formElements = document.querySelectorAll("input");
+      modalbg.style.display = "none";
       event.preventDefault();
     });
 
@@ -238,6 +237,7 @@ function resetForm() {
   const formElements = document.querySelectorAll("input");
   formElements.forEach(function(element) {
     element.value = "";
+
   });
 }
 
