@@ -234,11 +234,21 @@ function validate(){
 
 
 function resetForm() {
-  const formElements = document.querySelectorAll("input");
-  formElements.forEach(function(element) {
-    element.value = "";
-
-  });
+    // input values
+    const first = document.getElementById('first');
+    first.value = "";
+    const last = document.getElementById('last');
+    last.value = "";
+    const email = document.getElementById('email');
+    email.value = "";
+    const quantity = document.getElementById("quantity");
+    quantity.value = "";
+    const checkbox1 = document.getElementById("checkbox1");
+    checkbox1.value = "";
+    const checkbox2 = document.getElementById("checkbox2");
+    checkbox2.value = "";
+    const birthdate = document.getElementById('birthdate');
+    birthdate.value = "";
 }
 
 
@@ -268,6 +278,7 @@ function escClose() {
     if (event.key === "Escape") {
       // Close the modal
       modalbg.style.display = "none";
+      resetForm();
     }
   });
 }

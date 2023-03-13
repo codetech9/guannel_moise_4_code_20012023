@@ -470,6 +470,8 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
+
+
 @media screen and (max-width: 768px) {
   .hero-section {
     display: block;
@@ -513,6 +515,16 @@ footer {
   .copyrights {
     margin-top: 50px;
     text-align: center;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .hero-headline {
+    font-size: 2rem;
+  }
+
+  .hero-text {
+    margin-top: 30px; 
   }
 }
 
