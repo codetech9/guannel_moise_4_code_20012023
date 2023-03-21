@@ -103,18 +103,30 @@ function isBirthDateValid(birthdate){
 
 // function Quantity
 function isQuantityValid(quantity){
-  if(quantity.value < 0 ||  quantity.value >100){
+  // if(quantity.value < 0 && quantity.value < 100){
+  //   console.log( 'error');
+  //   errorQuantity.textContent = "Quantité invalide";
+  //   errorQuantity.style.color = "red";
+  //     errorQuantity.style.fontSize = "1rem";
+  //   return false;
+  // }else {
+  //   console.log("quantité: " + quantity);
+  //   errorQuantity.textContent = "";
+  //   errorQuantity.style.color = "green";
+  //   return true;
+  // }
+  if(!quantity.value){
     console.log( 'error');
     errorQuantity.textContent = "Quantité invalide";
     errorQuantity.style.color = "red";
-      errorQuantity.style.fontSize = "1rem";
+    errorQuantity.style.fontSize = "1rem";
     return false;
   }else {
-    console.log("quantité: " + quantity);
-    errorQuantity.textContent = "";
-    errorQuantity.style.color = "green";
-    return true;
-  }
+      console.log("quantité: " + quantity);
+      errorQuantity.textContent = "";
+      errorQuantity.style.color = "green";
+      return true;
+    }
 }
 
 
