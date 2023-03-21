@@ -44,11 +44,11 @@ function isFirstNameValid(first) {
       console.log(first);
       errorFirst.textContent ='Prénom invalide.';
       errorFirst.style.color = 'red';
+      errorFirst.style.fontSize = "1rem";
       return false;
   }else{
       console.log(first);
       errorFirst.textContent ='';
-      errorFirst.style.color = 'green';
       return true;
   }
 }
@@ -59,6 +59,7 @@ function isLastNameValid(last) {
       console.log(last);
       errorLast.textContent ='Nom invalide.';
       errorLast.style.color = 'red';
+      errorLast.style.fontSize = "1rem";
       return false;
   }else{
     console.log(last)
@@ -79,6 +80,7 @@ function isEmailValid(email){
     console.log("Invalid email given.");
     errorMail.textContent ='Mail invalide.';
     errorMail.style.color = 'red';
+    errorMail.style.fontSize = "1rem";
     return false;
   }
 }
@@ -87,6 +89,9 @@ function isEmailValid(email){
 function isBirthDateValid(birthdate){
   if(!regDate.test(birthdate.value)){
     console.log("Date invalide");
+    errorDate.textContent ='Date invalide.';
+    errorDate.style.color = 'red';
+    errorDate.style.fontSize = "1rem";
     return false;
   }else {
     console.log("Date valide");
@@ -98,10 +103,11 @@ function isBirthDateValid(birthdate){
 
 // function Quantity
 function isQuantityValid(quantity){
-  if(quantity.value === ""){
+  if(quantity.value < 0 ||  quantity.value >100){
     console.log( 'error');
     errorQuantity.textContent = "Quantité invalide";
     errorQuantity.style.color = "red";
+      errorQuantity.style.fontSize = "1rem";
     return false;
   }else {
     console.log("quantité: " + quantity);
@@ -124,6 +130,7 @@ function isChecbox1Checked(checkbox1) {
   console.log(checkbox1.checked);
   if (!checkbox1.checked) {
     errorCheckbox1.textContent = "Vous devez lire et accepter les conditions d'utilisations";
+    errorCheckbox1.style.fontSize = "1rem";
     console.log("Vous devez lire et accepter les conditions d'utilisations");
     return false;
   } else {
@@ -133,18 +140,6 @@ function isChecbox1Checked(checkbox1) {
 }
 
 
-
-// Checkbox2
-function isChecbox2Checked(checkbox2) {
-  console.log(checkbox2.value);
-  if (checkbox2.checked) {
-    errorCheckbox2.textContent = "";
-    return true
-  } else {
-   errorCheckbox2.textContent = "Vous n'avez rien cochez";
-   return false
-  }
-}
 
 const form = document.querySelector('form');
 
@@ -184,7 +179,6 @@ function validate(){
   const email = document.getElementById('email').value;
   const quantity = document.getElementById("quantity").value;
   const checkbox1 = document.getElementById("checkbox1");
-  const checkbox2 = document.getElementById("checkbox2");
   const birthdate = document.getElementById('birthdate');
 
   // Errors Validations
@@ -221,10 +215,7 @@ function validate(){
     console.log("etat-7: " + hasError);
   }
 
-  if(!isChecbox2Checked(checkbox2) ){
-    hasError = true;
-    console.log("etat-8: " + hasError);
-  }
+
 
 
   console.log("etat-10: " + hasError);
