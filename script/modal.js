@@ -33,7 +33,7 @@ const errorDate = document.getElementById("errorDate");
 const errorQuantity = document.getElementById("errorQuantity");
 const errorCheckbox1 = document.getElementById("errorCheckbox1");
 const errorCheckbox2 = document.getElementById("errorCheckbox2");
-
+const errorRadios = document.getElementById("errorRadios");
 let textcontrol = document.getElementsByClassName("text-control");
 
 
@@ -94,6 +94,7 @@ function isBirthDateValid(birthdate){
     errorDate.style.fontSize = "1rem";
     return false;
   }else {
+    errorDate.textContent ='';
     console.log("Date valide");
     console.log(birthdate.value);
     return true;
@@ -103,20 +104,8 @@ function isBirthDateValid(birthdate){
 
 // function Quantity
 function isQuantityValid(quantity){
-  // if(quantity.value < 0 && quantity.value < 100){
-  //   console.log( 'error');
-  //   errorQuantity.textContent = "Quantité invalide";
-  //   errorQuantity.style.color = "red";
-  //     errorQuantity.style.fontSize = "1rem";
-  //   return false;
-  // }else {
-  //   console.log("quantité: " + quantity);
-  //   errorQuantity.textContent = "";
-  //   errorQuantity.style.color = "green";
-  //   return true;
-  // }
-  if(!quantity.value){
-    console.log( 'error');
+  if(!quantity){
+    console.log( quantity);
     errorQuantity.textContent = "Quantité invalide";
     errorQuantity.style.color = "red";
     errorQuantity.style.fontSize = "1rem";
@@ -130,19 +119,30 @@ function isQuantityValid(quantity){
 }
 
 
-// Radio Check
-function isRadioChecked() {
-  location1 = document.getElementById("location1").defaultChecked;
+// function Location
+function isRadioChecked(radioChecked) {
+  radioChecked = document.querySelector('input[name = "location"]:checked');
+  console.log(radioChecked);
+  if(radioChecked == null){  //Test if something was checked
+    errorRadios.textContent = "Aucune localisation n'a été choisie.";
+    errorRadios.style.color = "red";
+    errorRadios.style.fontSize = "1rem";
+    return false;
+  }else {
+    console.log(radioChecked);
+    errorRadios.textContent = "";
+    return true;
+  }
 }
 
 
 // Checkbox1
-
 function isChecbox1Checked(checkbox1) {
   console.log(checkbox1.checked);
   if (!checkbox1.checked) {
     errorCheckbox1.textContent = "Vous devez lire et accepter les conditions d'utilisations";
     errorCheckbox1.style.fontSize = "1rem";
+    errorCheckbox1.style.color = "red";
     console.log("Vous devez lire et accepter les conditions d'utilisations");
     return false;
   } else {
@@ -150,7 +150,6 @@ function isChecbox1Checked(checkbox1) {
     return true;
   }
 }
-
 
 
 const form = document.querySelector('form');
@@ -190,6 +189,7 @@ function validate(){
   const last = document.getElementById('last').value;
   const email = document.getElementById('email').value;
   const quantity = document.getElementById("quantity").value;
+  const radioChecked = document.querySelector('input[name = "location"]:checked');;
   const checkbox1 = document.getElementById("checkbox1");
   const birthdate = document.getElementById('birthdate');
 
@@ -222,9 +222,15 @@ function validate(){
     console.log("etat-6: " + hasError);
   }
 
-  if(!isChecbox1Checked(checkbox1) ){
+
+  if(!isRadioChecked(radioChecked)){
     hasError = true;
     console.log("etat-7: " + hasError);
+  }
+
+  if(!isChecbox1Checked(checkbox1) ){
+    hasError = true;
+    console.log("etat-8: " + hasError);
   }
 
 
